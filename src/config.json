@@ -1,0 +1,8 @@
+{ 
+  apiKey: "AIzaSyBJ7Wu90twxzwZaEoND_258zSlXs38hHzk",
+  authDomain: "react-native-manager-388d3.firebaseapp.com",
+  databaseURL: "https://react-native-manager-388d3.firebaseio.com",
+  projectId: "react-native-manager-388d3",
+  storageBucket: "react-native-manager-388d3.appspot.com",
+  messagingSenderId: "33504877825"
+}
