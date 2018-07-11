@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import track from '../Amplitude'
 import { Actions } from 'react-native-router-flux'
 import {
   UPDATE_EMPLOYEE,
@@ -20,6 +21,11 @@ export const employeeCreate = ({ name, phone, shift }) => {
     firebase.database().ref(`/users/${currentUser.uid}/employees`)
       .push({ name, phone, shift })
       .then(() => { 
+        track({
+          event_type: 'new_hire',
+          user: currentUser,
+          name, phone, shift
+        })
         dispatch({ type: EMPLOYEE_FORM_CLEAR })
         Actions.pop() 
       })
@@ -44,6 +50,11 @@ export const employeeSave = ({ name, phone, shift, uid }) => {
     firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
       .set({ name, phone, shift })
       .then(() => {
+        track({
+          event_type: 'shift_changed',
+          user: currentUser,
+          name, phone, shift
+        })
         dispatch({ type: EMPLOYEE_FORM_CLEAR })
         Actions.pop()
       })
@@ -63,6 +74,10 @@ export const employeeDelete = ({ uid }) => {
     firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
       .remove()
       .then(() => {
+        track({
+          event_type: 'lay_off',
+          user: currentUser
+        })
         Actions.pop()
       })
   }

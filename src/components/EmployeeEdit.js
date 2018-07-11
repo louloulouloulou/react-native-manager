@@ -2,7 +2,8 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Communications from 'react-native-communications'
-import { employeeCreate } from '../actions'
+import track from '../Amplitude'
+import firebase from 'firebase'
 import { Card, CardSection, Button, Confirm } from './common'
 import EmployeeForm from './EmployeeForm'
 import { employeeUpdate, employeeSave, employeeDelete } from '../actions'
@@ -39,6 +40,14 @@ class EmployeeEdit extends Component {
   }
 
   onDecline(){
+    const { name, phone, shift } = this.props
+
+    const { currentUser } = firebase.auth()
+    track({
+      event_type: 'lay_off_cancel',
+      user: currentUser,
+      name, phone, shift
+    })
     this.setState({showModal: false})
   }
 
@@ -66,8 +75,8 @@ class EmployeeEdit extends Component {
 
         <Confirm
           visible={this.state.showModal}
-          onAccept={this.onAccept.bind(this)}
           onDecline={this.onDecline.bind(this)}
+          onAccept={this.onAccept.bind(this)}
         >
           Are you sure you want to fire {this.props.name}?
         </Confirm>
