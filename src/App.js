@@ -10,9 +10,10 @@ import Router from './Router'
 export default class App extends Component {
 
 	componentDidMount() {
-		// Initialize Firebase
+		// Initialize Firebase and Amplitude
 		var config = require('./config.json')
-		firebase.initializeApp(config)
+    firebase.initializeApp(config.firebase)
+
 	}
 
 	render(){
