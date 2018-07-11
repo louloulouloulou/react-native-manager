@@ -4,6 +4,7 @@ My implementation of the manager app from Stephen Grider's React Native with Red
 To run the app, first clone the repository.
 Then navigate to the project directory and run:
 ```
+npm install
 react-native run-ios
 ```
 
